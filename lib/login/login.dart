@@ -1,9 +1,14 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bling_extensions/bling_extensions.dart';
+import 'package:simple_pm_flutter/global/user_info_manager.dart';
+import 'package:simple_pm_flutter/home/home.dart';
+import 'package:simple_pm_flutter/http/api.dart';
+import 'package:simple_pm_flutter/http/http_manager.dart';
+import 'package:simple_pm_flutter/model/base_bean.dart';
+import 'package:simple_pm_flutter/model/user_info.dart';
+import 'dart:convert' as convert;
 
 class Login extends StatefulWidget {
   @override
@@ -19,6 +24,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   // 密码
   final TextEditingController _passController = TextEditingController();
+
 
   @override
   void initState() {
@@ -49,30 +55,22 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   /// 执行登录操作
   Future<void> login() async {
-    // String email = _emailController.text;
-    // String password = _passController.text;
-    // if(email.isBlank || password.isBlank) {
-    //   showToast('email or password required');
-    //   return;
-    // }
-    // BaseResp resp = await NetRequest.post(
-    //   url: URL.login,
-    //   dateTypeInstance: LoginUser(),
-    //   param: {"email": email.trim() ?? "", "password": password.trim() ?? ""},
-    // );
-    // if (resp.result == true) {
-    //   LoginUser user = resp.data;
-    //   LoginUserManager.instance.updateInstance(loginUser: user, notify: false);
-    //   Navigator.of(context).pushReplacement(MaterialPageRoute(
-    //     builder: (context) => MainTablePage(),
-    //     settings: RouteSettings(name: "/"),
-    //   ));
-    //   SharedPreferences prefs = await SharedPreferences.getInstance();
-    //   await prefs.setString('email', email.trim());
-    //   await prefs.setString('password', password.trim());
-    // } else {
-    //   showToast(resp?.msg ?? "request error");
-    // }
+    String email = _emailController.text;
+    String password = _passController.text;
+    if(email.isBlank || password.isBlank) {
+      // showToast('email or password required');
+      return;
+    }
+    BaseBean res = await HttpManager.getInstance().post(Api.login, body: {"email": email.trim() ?? "", "password": password.trim() ?? ""});
+    if(res.code == 10000) {
+      // 储存用户信息
+      String userInfoString = convert.jsonEncode(res.data);
+      UserInfoManager.setUserInfo(userInfoString);
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => Home(),
+        settings: RouteSettings(name: "/"),
+      ));
+    }
   }
 
 
@@ -253,3 +251,4 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     ).onTap(() => _showPassNotifier.value = !_showPassNotifier.value, tapInterval: 200);
   }
 }
+

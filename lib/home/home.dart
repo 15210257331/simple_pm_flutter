@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_pm_flutter/home/contact/contact.dart';
 import 'package:simple_pm_flutter/home/message/message.dart';
 import 'package:simple_pm_flutter/home/mine/mine.dart';
+import 'package:simple_pm_flutter/provider/contact_provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -11,6 +13,19 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
 
   int _tabIndex = 0;
+
+
+  /// 获取联系人数据
+  Future<void> _getContactList() async {
+    await Provider.of<ContactProvider>(context, listen: false).getContactList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getContactList();
+  }
+
 
   @override
   Widget build(BuildContext context) {

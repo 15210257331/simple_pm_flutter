@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_pm_flutter/model/contact.dart';
+import 'package:simple_pm_flutter/provider/contact_provider.dart';
 
 class Contact extends StatefulWidget {
   @override
@@ -9,28 +12,6 @@ class _ContactState extends State<Contact> {
 
   final TextEditingController _emailController = TextEditingController();
 
-  List<Map<String,dynamic>> contactList = [
-    {
-      'name':'asdfa',
-      'url': 'adsfaf'
-    },
-    {
-      'name':'asdfa',
-      'url': 'adsfaf'
-    },
-    {
-      'name':'asdfa',
-      'url': 'adsfaf'
-    },
-    {
-      'name':'asdfa',
-      'url': 'adsfaf'
-    },
-    {
-      'name':'asdfa',
-      'url': 'adsfaf'
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -95,20 +76,27 @@ class _ContactState extends State<Contact> {
   }
 
   Widget _buildContacts() {
-    return Expanded(
-        child: ListView.builder(
-            itemCount: contactList.length,
-            itemExtent: 70,
-            itemBuilder: (context, index) {
-              return ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 18),
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/default-avatar.png"),
-                ),
-                title: Text(contactList[index]['name']),
+    return Consumer<ContactProvider>(
+        builder: (context, contactProvider, _) {
+          List<ContactData>  contactList = contactProvider.contactList;
+          return Expanded(
+              child: ListView.separated(
+                  itemCount: contactList.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      // contentPadding: EdgeInsets.symmetric(horizontal: 18),
+                      leading: CircleAvatar(
+                        backgroundImage: AssetImage("assets/images/default-avatar.png"),
+                      ),
+                      title: Text(contactList[index].foreignName),
+                    );
+                  },
+                  padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+                  separatorBuilder: (context, index) {
+                    return Divider(color: Colors.grey[200],height: 1.0,thickness: 1.0,);
+                  })
               );
-            }
-        )
+        }
     );
   }
 }

@@ -52,6 +52,15 @@ dependencies:
   #声网rtc
   agora_rtc_engine: 3.1.3
 
+  # toast
+  flutter_easyloading: ^2.2.2
+
+  # toast
+  oktoast: 2.3.2
+
+  # badges
+  badges: ^1.1.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
