@@ -3,12 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bling_extensions/bling_extensions.dart';
 import 'package:simple_pm_flutter/global/user_info_manager.dart';
-import 'package:simple_pm_flutter/home/home.dart';
-import 'package:simple_pm_flutter/http/api.dart';
-import 'package:simple_pm_flutter/http/http_manager.dart';
+import 'package:simple_pm_flutter/config/api.dart';
+import 'package:simple_pm_flutter/config/http_manager.dart';
 import 'package:simple_pm_flutter/model/base_bean.dart';
 import 'package:simple_pm_flutter/model/user_info.dart';
 import 'dart:convert' as convert;
+
+import 'package:simple_pm_flutter/pages/home.dart';
 
 class Login extends StatefulWidget {
   @override

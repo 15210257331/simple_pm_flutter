@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:simple_pm_flutter/pages/mine/setting.dart';
 
 class Mine extends StatefulWidget {
   @override
@@ -87,7 +88,12 @@ class _MineState extends State<Mine> {
       child: ListTile(
           leading: Icon(Icons.settings),
           title: Text('Setting'),
-          trailing: Icon(Icons.keyboard_arrow_right)
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => Setting(),
+            ));
+          },
       )
     );
   }

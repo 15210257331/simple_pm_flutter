@@ -7,8 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_pm_flutter/config/theme_map.dart';
 import 'package:simple_pm_flutter/global/global.dart';
 import 'package:simple_pm_flutter/global/user_info_manager.dart';
-import 'package:simple_pm_flutter/home/home.dart';
-import 'package:simple_pm_flutter/login/login.dart';
+import 'package:simple_pm_flutter/pages/login.dart';
+import 'package:simple_pm_flutter/pages/home.dart';
 import 'package:simple_pm_flutter/provider/app_provider.dart';
 import 'package:simple_pm_flutter/provider/contact_provider.dart';
 

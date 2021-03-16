@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_pm_flutter/home/contact/contact.dart';
-import 'package:simple_pm_flutter/home/message/message.dart';
-import 'package:simple_pm_flutter/home/mine/mine.dart';
+import 'package:simple_pm_flutter/pages/contact/contact.dart';
+import 'package:simple_pm_flutter/pages/message/message.dart';
+import 'package:simple_pm_flutter/pages/mine/mine.dart';
 import 'package:simple_pm_flutter/provider/contact_provider.dart';
 
 class Home extends StatefulWidget {
